@@ -11,12 +11,12 @@ from posts.models import PostModel
 def send_email(sender, instance, *args, **kwargs):
     email = EmailModel.objects.order_by('-pk')
     if email:
-        for email in email:
+        for users in email:
             text = f'{instance.title}\n{instance.postinfo}\n' \
                    f'link: http://127.0.0.1:8000/post/detail/{instance.id}/'
             send_mail(
                 'Notification',
                 text,
                 settings.EMAIL_HOST_USER,
-                [email],
+                [users],
             )
