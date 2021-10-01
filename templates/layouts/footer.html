@@ -1,0 +1,57 @@
+{% load static %}
+
+
+<!-- Footer Area -->
+<footer class="footer_area">
+    <div class="container">
+        <div class="footer_inner row">
+            <div class="col-lg-5 col-md-6 footer_logo">
+                <h1 class="text-primary font-weight-bold">BLOG UZ</h1>
+                <p>Established in 2013 as the first cloud mining provider, Blog has become a multi-functional Blog
+                    Categories, trusted by over a million users.</p>
+                <address>
+                    <span>LOCATION</span>
+                    <p>12/4 New Yourk R Block Street 2101 USA</p>
+                </address>
+            </div>
+            <div class="col-lg-5 col-md-6">
+                <div class="subscribe">
+                    <h4>Subscribe</h4>
+                    <p>Sign up for our mailing list to get latest updates and offers</p>
+                    <div class="input-group">
+                        <form method="post" action="{% url 'email:create' %}">
+                            {{ form.errors }}
+                            {% csrf_token %}
+                            <input name='email' type="text" class="form-control" placeholder="">
+                            <div class="input-group-append">
+                                <button type="submit" class="input-group-text"><i class="fa fa-paper-plane"></i></button>
+                            </div>
+                        </form>
+                    </div>
+                    <h6>Working Hours : Monday-Saturday <span>Close : Sunday</span></h6>
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-3 resources">
+                <h4>Short Link</h4>
+                <ul class="resources_list">
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="#">Bug Bounty Program</a></li>
+                    <li><a href="#">Policy</a></li>
+                    <li><a href="faq.html">FAQ</a></li>
+                    <li><a href="shop.html">Shop</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="copy_right">
+        <p><a target="_blank" href="https://www.templateshub.net">Templates Hub</a></p>
+    </div>
+</footer>
+<script>
+window.replainSettings = { id: 'bac59da7-8227-45e6-a832-1213cf4af4a6' };
+(function(u){var s=document.createElement('script');s.type='text/javascript';s.async=true;s.src=u;
+var x=document.getElementsByTagName('script')[0];x.parentNode.insertBefore(s,x);
+})('https://widget.replain.cc/dist/client.js');
+</script>
+<!-- End Footer Area -->

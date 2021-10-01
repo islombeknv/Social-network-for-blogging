@@ -1,0 +1,181 @@
+{% extends 'layouts/base.html' %}
+
+{% load static %}
+{% block extra_css %}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+{% endblock %}
+{% block content %}
+    <!-- Pages Heder Area -->
+    <div class="container">
+        <div class="pages_heder">
+            <h2>Blog details</h2>
+            <ol class="breadcrumb">
+                <li><a href="index-2.html">Home</a></li>
+                <li><a href="#">Blog</a></li>
+                <li><a href="news-details.html" class="active text-warning">Blog details</a></li>
+            </ol>
+        </div>
+    </div>
+    <!-- End Pages Heder Area -->
+
+    <!-- Post section -->
+    <section class="post_section news_post">
+        <div class="container">
+            <div class="row post_section_inner">
+                <!-- Left_sidebar -->
+                <div class="col-lg-8">
+                    <div class="news_left_sidebar">
+                        <!-- News Item -->
+                        <div class="news_item news_details pb-1 mb-0">
+                            <h6><a href="#" class="investing">Post by
+                                : {{ object.user }}</a>{% for tag in object.tags.all %}
+                                <a href="#" class="investing">#{{ tag }}</a>{% endfor %}
+                                &nbsp;<a class="investing bg-light text-dark">{{ object.created_at|date:'M d, Y' }}</a>
+                                <a href="#" class="investing bg-light text-dark"> <i
+                                        class="bi bi-eye-fill">&nbsp; </i> {{ object.blog_views }}</a>
+
+                            </h6>
+                            <a href="news-details.html" class="news_heding">{{ object.title }}</a>
+                            <img src="{{ object.banner.url }}" alt="">
+                            <p class="fast_p">{{ object.postinfo }} </p>
+                            <p class="fast_p">{{ object.content|safe }} </p>
+
+                        </div>
+                        <div class="row">
+                            {% if object.get_prev %}
+                                <div class="col-sm-2 col-md-2 col-lg-6  p-2"><p class="text-muted">Prevous post</p>
+                                    <h4><i class="bi bi-arrow-left"></i>
+                                        <a class="text-primary"
+                                           href="{% url 'pages:post_detail' pk=object.get_prev.pk %}">
+                                            {{ object.get_prev.title }}
+                                        </a>
+                                    </h4>
+                                    <hr>
+                                </div>
+                            {% endif %}
+
+                            {% if object.get_next %}
+                                <div class="col-sm-2 col-md-2 col-lg-6 text-right float-right  p-2"><p
+                                        class="text-muted">Next post
+                                </p>
+                                    <h4>
+                                        <a class="text-primary"
+                                           href="{% url 'pages:post_detail' pk=object.get_next.pk %}">
+                                            {{ object.get_next.title }}
+                                        </a><i class="bi bi-arrow-right"></i>
+                                    </h4>
+                                    <hr>
+                                </div>
+                            {% endif %}
+                        </div>
+
+                        <div class="">
+                            <h4>Comment ({{ object.comments.count }})</h4>
+                            <div class="m-auto">
+                                <ul>
+                                    {% for comment in object.get_comments %}
+                                        <li class="media py-4">
+                                            <div class="media-body">
+                                                <span class="text-muted pull-right">
+                                                    <small class="text-muted">
+                                                        {{ comment.created_on|timesince }} ago
+                                                    </small>
+                                                </span>
+                                                <strong>{{ comment.name }}</strong>
+                                                <p>
+                                                    {{ comment.comment }}
+                                                </p>
+                                            </div>
+                                        </li>
+                                        <hr>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="leave_reply">
+                            <h2>Leave a Reply</h2>
+                            <form class="row login_from" action="{% url 'pages:comment' pk=object.pk %}" method="post">
+                                {% csrf_token %}
+                                <div class="form-group col-12">
+                                    <textarea class="form-control" name="comment"
+                                              placeholder="Your Comment"></textarea>
+                                </div>
+                                <div class="form-group col-12">
+                                    <input name="name" type="text" class="form-control" placeholder="Name">
+                                </div>
+                                <div class="form-group col-12">
+                                    <input type="email" class="form-control" name="email" placeholder="Email">
+                                </div>
+                                <div class="form-group larg_btn col-12">
+                                    <button class="sm_btn" type="submit">Submit Reply <i class="fa fa-arrow-right"></i>
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- End left_sidebar -->
+                <div class="col-lg-4 right_sidebar">
+
+                    <!-- Latest Bitcoin News -->
+                    <div class="latest_news_widget mt-0 pt-0">
+                        <h2 style="margin-bottom: 0px; padding-bottom: 5px;">{{ category }}
+                            News</h2>
+                    </div>
+                    <!-- Tabs Widget -->
+                    <div class="tabs_widge">
+                        <div class="tab-content" id="nav-tabContent">
+                            <div class="tab-pane fade show active text_widget_area" id="technology" role="tabpanel">
+                                <!-- Text widget -->
+                                {% for post in related_posts %}
+                                    <div class="text_widget">
+                                        <a href="{% url 'pages:post_detail' pk=post.pk %}">{{ post.postinfo }}</a>
+                                        <h6>{{ post.created_at|date:'H:m' }}, {{ post.user }}
+                                            {% for tag in post.tags.all %}
+                                                <span class="tech">{{ tag }}</span>{% endfor %}
+                                        </h6>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="latest_news_widget">
+                        <h2 style="margin-bottom: 0px; padding-bottom: 5px;">Latest news</h2>
+                    </div>
+                    <div class="tabs_widge">
+                        <div class="tab-content" id="nav-tabContent">
+                            <div class="tab-pane fade show active text_widget_area" id="technology" role="tabpanel">
+                                <!-- Text widget -->
+                                {% for post in latest_news %}
+                                    <div class="text_widget">
+                                        <a href="{% url 'pages:post_detail' pk=post.pk %}">{{ post.postinfo }}</a>
+                                        <h6>{{ post.created_at|date:'H:m' }}, {{ post.user }}
+                                            {% for tag in post.tags.all %}
+                                                <span class="tech">{{ tag }}</span>{% endfor %}
+                                        </h6>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Advertisement -->
+                    <div class="advertisement">
+                        <a href="#"><img src="{% static 'images/advertisement-1.jpg' %}" alt=""></a>
+                    </div>
+                    <!-- Social Sidget -->
+                    <ul class="social_widget">
+                        <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                        <li><a href="#" class="twitter"><i class="fa fa-twitter"></i></a></li>
+                        <li><a href="#" class="pinterest"><i class="fa fa-pinterest"></i></a></li>
+                        <li><a href="#" class="linkedin"><i class="fa fa-linkedin"></i></a></li>
+                        <li><a href="#" class="google"><i class="fa fa-google-plus"></i></a></li>
+                        <li><a href="#" class="instagram"><i class="fa fa-instagram"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

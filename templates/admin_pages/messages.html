@@ -1,0 +1,27 @@
+{% extends 'layouts/admin_base.html' %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            {% for i in object_list %}
+                <div class="card col-xl-4 mb-4">
+                    <h3 class="pt-1">{{ forloop.counter }}
+                        {% if i.view %}<span class="badge badge-danger" style="font-size:14px;">seen</span>
+                        {% else %}<span class="badge badge-success" style="font-size:14px;">New</span>
+                        {% endif %}</h3>
+                    <div class="card-body" style="padding-bottom: 0px">
+                        <h5 class="car d-title"><a class='a' href="">{{ i.name }}</a></h5>
+                        <p>
+                        <ul>
+                            <li>Email: {{ i.email }}</li>
+                            <li>Company: {{ i.company }}</li>
+                            <li>Select: {{ i.select }} </li>
+                            <li>Comment: {{ i.comment }}:<br></li>
+                        </ul>{{ i.created_at|date:'H:i / d.m.Y' }}
+                        </p>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,22 @@
+{% extends 'layouts/admin_base.html' %}
+
+{% block content %}
+    <div class="container h-100">
+        <div class="row">
+                <div class="card col-xl-12 mb-4">
+                    <h5 class="pt-1">{{ object.created_at|date:'H:i / d.m.Y' }}</h5>
+                    <div class="card-body" style="padding-bottom: 0px">
+                        <h5 class="card-title"><a class='a' href="">{{ object.name }}</a></h5>
+                        <p>
+                        <ul>
+                            <li>Email: {{ object.email }}</li>
+                            <li>Company: {{ object.company }}</li>
+                            <li>Select: {{ object.select }} </li>
+                            <li>Comment: {{ object.comment }}:<br></li>
+                        </ul>
+                        </p>
+                    </div>
+                </div>
+        </div>
+    </div>
+{% endblock %}

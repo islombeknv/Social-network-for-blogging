@@ -1,0 +1,63 @@
+{% extends 'layouts/admin_base.html' %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block content %}
+    <!-- Pages Heder Area -->
+    <div class="container-fluid">
+        <div class="pages_heder">
+            <h2>Update post</h2>
+            <ol class="breadcrumb">
+                <li><a href="index-2.html">Admin / </a></li>
+                <li><a href="contact.html" class="text-warning">&nbsp;Update post</a></li>
+            </ol>
+        </div>
+    </div>
+    <!-- End Pages Heder Area -->
+
+    <!-- Contact Us Area -->
+    <div class=" contact_area h-100">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="offset-2 col-7">
+                    <form method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        {{ form.errors }}
+                        <div class="form-group">
+                            <div class="row">
+                               <div class="col-6 offset-4">
+                                   {{ form.category.label }}:
+                                    <select name="category" aria-label="Default select example" class="form-select"
+                                            required id="id_category">
+                                        {% for category in categories %}
+                                            <option value="{{ category.pk }}">{{ category }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="frm-group col-12 text-center">
+                            <button class="btn bg-primary text-white" type="submit">UPDATE POST<i
+                                    class="fa fa-arrow-right"></i></button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Contact Us Area -->
+
+
+{% endblock %}
+
+{% block extra_js %}
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
+            crossorigin="anonymous"></script>
+    <script src="{% static 'vendors/bootstrap-selector/jquery.nice-select.min.js' %}"></script>
+    <!-- Contact From js -->
+    <script src="{% static 'js/contact.js' %}"></script>
+    <script src="{% static 'js/jquery.validate.min.js' %}"></script>
+    {{ form.media.js }}
+{% endblock %}
+

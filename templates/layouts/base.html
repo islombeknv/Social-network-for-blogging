@@ -1,0 +1,74 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="icon"
+          href="data:image/png;base64,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"
+          type="image/x-icon"/>
+    <!-- Theme tittle -->
+    <title>Blog uz</title>
+
+    <!-- Theme style CSS -->
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+    <!-- CSS only -->
+
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css"/>
+    <!-- CSS only -->
+
+    {% block extra_css %}
+
+    {% endblock %}
+    <style>
+        a {
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+{% include 'layouts/header.html' %}
+
+{% block content %}
+
+{% endblock %}
+
+{% include 'layouts/footer.html' %}
+
+<!-- Scroll Top Button -->
+<button class="scroll-top">
+    <i class="fa fa-angle-double-up"></i>
+</button>
+
+<!-- Preloader -->
+{#    <div class="preloader"></div>#}
+
+<!-- jQuery v3.2.1 -->
+<script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
+<script src="{% static 'js/popper.min.js' %}"></script>
+<!-- Bootstrap v4.1.0 -->
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
+<!-- Extra Plugin -->
+<script src="{% static 'vendors/animate-css/wow.min.js' %}"></script>
+{% block extra_js %}
+
+{% endblock %}
+<!-- Theme js / Custom js -->
+<script src="{% static 'js/theme.js' %}"></script>
+<script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+<script>
+    AOS.init();
+</script>
+
+</body>
+
+</html>

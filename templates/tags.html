@@ -1,0 +1,304 @@
+{% extends 'layouts/base.html' %}
+{% load  widget_tweaks %}
+{% block extra_css %}
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        body {
+            color: #566787;
+            background: #f5f5f5;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        .table-responsive {
+            margin: 30px 0;
+        }
+
+        .table-wrapper {
+            min-width: 1000px;
+            background: #fff;
+            padding: 20px;
+            box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
+        }
+
+        .table-title {
+            padding-bottom: 10px;
+            margin: 0 0 10px;
+            min-width: 100%;
+        }
+
+        .table-title h2 {
+            margin: 8px 0 0;
+            font-size: 22px;
+        }
+
+        .search-box {
+            position: relative;
+            float: right;
+        }
+
+        .search-box input {
+            height: 34px;
+            border-radius: 20px;
+            padding-left: 35px;
+            border-color: #ddd;
+            box-shadow: none;
+        }
+
+        .search-box input:focus {
+            border-color: #3FBAE4;
+        }
+
+        .search-box i {
+            color: #a0a5b1;
+            position: absolute;
+            font-size: 19px;
+            top: 8px;
+            left: 10px;
+        }
+
+        table.table tr th, table.table tr td {
+            border-color: #e9e9e9;
+        }
+
+        table.table-striped tbody tr:nth-of-type(odd) {
+            background-color: #fcfcfc;
+        }
+
+        table.table-striped.table-hover tbody tr:hover {
+            background: #f5f5f5;
+        }
+
+        table.table th i {
+            font-size: 13px;
+            margin: 0 5px;
+            cursor: pointer;
+        }
+
+        table.table td:last-child {
+            width: 130px;
+        }
+
+        table.table td a {
+            color: #a0a5b1;
+            display: inline-block;
+            margin: 0 5px;
+        }
+
+        table.table td a.view {
+            color: #03A9F4;
+        }
+
+        table.table td a.edit {
+            color: #FFC107;
+        }
+
+        table.table td a.delete {
+            color: #E34724;
+        }
+
+        table.table td i {
+            font-size: 19px;
+        }
+
+        .pagination {
+            float: right;
+            margin: 0 0 5px;
+        }
+
+        .pagination li a {
+            border: none;
+            font-size: 95%;
+            width: 30px;
+            height: 30px;
+            color: #999;
+            margin: 0 2px;
+            line-height: 30px;
+            border-radius: 30px !important;
+            text-align: center;
+            padding: 0;
+        }
+
+        .pagination li a:hover {
+            color: #666;
+        }
+
+        .pagination li.active a {
+            background: #03A9F4;
+        }
+
+        .pagination li.active a:hover {
+            background: #0397d6;
+        }
+
+        .pagination li.disabled i {
+            color: #ccc;
+        }
+
+        .pagination li i {
+            font-size: 16px;
+            padding-top: 6px
+        }
+
+        .hint-text {
+            float: left;
+            margin-top: 6px;
+            font-size: 95%;
+        }
+    </style>
+{% endblock %}
+{% block content %}
+    <!-- Pages Heder Area -->
+    <div class="container">
+        <div class="pages_heder">
+            <h2>Contact Us</h2>
+            <ol class="breadcrumb">
+                <li><a href="index-2.html">Home</a></li>
+                <li><a href="contact.html" class="active text-warning">Tags</a></li>
+            </ol>
+        </div>
+    </div>
+    <!-- End Pages Heder Area -->
+    <div class="container">
+
+        <div class="row my-5">
+
+             {% if messages %}
+                <div class="offset-1 col-10" data-aos="zoom-in">
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        {% for i in messages %}
+                            <b><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
+                                 class="bi bi-check-circle text-dark" viewBox="0 0 16 16">
+                                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                                <path d="M10.97 4.97a.235.235 0 0 0-.02.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05z"/>
+                            </svg> {{ i }}</b>
+                        {% endfor %}
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                </div>
+            {% endif %}
+
+            <p class="text-center">{{ form.errors }}</p>
+            <form method="POST" enctype="multipart/form-data" class="form-inline" action="{% url 'blog:tags-create' %}">
+                {% csrf_token %}
+                <div class="offset-2 col-6">
+                    <input type="text" class="form-control w-100 form-control-lg" name="title"
+                           placeholder="Title">
+                </div>
+                <div class="col-3 float-right">
+                    <button type="submit" class="btn btn-primary btn-lg">Craete tag
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="container-xl">
+        <div class="table-responsive">
+            <div class="table-wrapper">
+                <div class="table-title">
+                    <div class="row">
+                        <div class="col-sm-8"><h2><b class="text-primary">{{ tagscount }}</b> <b>Tag Details</b></h2>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="search-box">
+                                <form action="{% url 'blog:tags-create' %}">
+                                    <i class="material-icons text-primary">&#xE8B6;</i>
+                                    <input value="{{ request.GET.q }}" name="q" type="text"
+                                           class="form-control bg-light"
+                                           placeholder="Search&hellip;">
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <table class="table table-striped table-hover table-bordered">
+                    <thead>
+                    <tr>
+                        <th>№</th>
+                        <th>Title <i class="fa fa-sort"></i></th>
+                        <th>Author</th>
+                        <th>Created at <i class="fa fa-sort"></i></th>
+                        <th>Updated at <i class="fa fa-sort"></i></th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% if 'update' in request.path %}
+                        <tr class="w-100 table-active">
+
+                            <td colspan="6">
+                                <form method="POST">
+                                    {% csrf_token %}
+                                    {{ form.errors }}
+                                    <div class="form-inline">
+                                        <div class="col-10 w-100">
+                                            {{ form.title|add_class:'w-100' }}
+                                        </div>
+                                        <div class="col-2 w-100">
+                                            <button type="submit" class="btn btn-success w-100">Update tag
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </td>
+                        </tr>
+                    {% endif %}
+                    {% for tag in tags %}
+                        <tr class="w-auto">
+                            <td>{{ forloop.counter }}</td>
+                            <td>{{ tag.title }}{% if tag.is_new %}
+                                <span class="badge badge-success">New</span>{% endif %}</td>
+                            <td>{{ tag.user }}</td>
+                            <td>{{ tag.created_at|date:'d F, Y H:m' }}</td>
+                            <td>{{ tag.updated_at|date:'d F, Y H:m' }}</td>
+                            <td>
+                                <form onsubmit="return confirm('You sure?')" method="POST"
+                                      action="{% url 'blog:tags-delete' pk=tag.pk %}">
+                                    {% csrf_token %}
+                                    {#                                    <a href="#" class="view" title="View" data-toggle="tooltip"><i#}
+                                    {#                                            class="material-icons">&#xE417;</i></a>#}
+                                    <a href="{% url 'blog:tag-update' pk=tag.pk %}" class="edit mr-3" title="Edit"
+                                       data-toggle="tooltip"><i
+                                            class="material-icons">&#xE254;</i></a>
+                                    <button type="submit" class="btn border-none">
+                                        <p class="delete" title="Delete" data-toggle="tooltip"><i
+                                                class="material-icons text-danger">&#xE872;</i></p>
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+                <div class="clearfix">
+                    <div class="hint-text">Showing <b class="active">{{ tagscount }}</b></div>
+                    <ul class="pagination">
+                        <li class="page-item disabled"><a href="#"><i class="fa fa-angle-double-left"></i></a></li>
+                        <li class="page-item"><a href="#" class="page-link">1</a></li>
+                        <li class="page-item"><a href="#" class="page-link">2</a></li>
+                        <li class="page-item active"><a href="#" class="page-link">3</a></li>
+                        <li class="page-item"><a href="#" class="page-link">4</a></li>
+                        <li class="page-item"><a href="#" class="page-link">5</a></li>
+                        <li class="page-item"><a href="#" class="page-link"><i class="fa fa-angle-double-right"></i></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block extra_js %}
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('[data-toggle="tooltip"]').tooltip();
+        });
+    </script>
+{% endblock %}
