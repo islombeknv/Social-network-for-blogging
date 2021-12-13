@@ -19,7 +19,7 @@ class PostCreateView(LoginRequiredMixin, CreateView):
     def form_valid(self, form):
         form.instance.user = self.request.user
         form.save()
-        return redirect(self.get_success_url())
+        return redirect('/')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

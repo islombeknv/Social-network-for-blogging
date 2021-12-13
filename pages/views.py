@@ -4,7 +4,7 @@ from django.urls import reverse
 from django.views.generic import TemplateView, ListView, DetailView, CreateView
 
 from pages.forms import CommentForm
-from posts.models import PostModel, CategoryModel
+from posts.models import PostModel
 
 
 class AboutTemplate(TemplateView):
